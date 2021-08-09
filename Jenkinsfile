@@ -10,6 +10,5 @@ node {
         customImage.push()
 
     }
-    sh 'docker rmi -f lengochung1/dockerwebapp:${env.BUILD_ID}'
     
 }
