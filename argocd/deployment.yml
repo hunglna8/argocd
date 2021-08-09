@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app1
+  template:
+    metadata:
+      name: podapp
+      labels:
+        app: app1
+    spec:
+      containers:
+      - name: node
+        image: lengochung1/dockerwebapp:latest
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        ports:
+          - containerPort: 8080
