@@ -8,6 +8,7 @@ node {
 
         /* Push the container to the custom Registry */
         customImage.push()
+        sh 'docker rmi -f lengochung1/dockerwebapp:${env.BUILD_ID}'
     }
 
     
