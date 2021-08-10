@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: node
-        image: lengochung1/dockerwebapp:v2
+        image: lengochung1/dockerwebapp:latest
         imagePullPolicy: Always
         resources:
           limits:
