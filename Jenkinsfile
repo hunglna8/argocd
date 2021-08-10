@@ -29,22 +29,6 @@ pipeline {
         sh "docker image rm ${DOCKER_IMAGE}:latest"
       }
     }
-    stage('Update GIT') {
-      steps {
-        script {
-           
-            withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
-                sh "git config user.email lengochung.ptit@gmail.com"
-                sh "git config user.name hungba"
-                sh "git add ."
-                sh "git commit -m 'Triggered Build: ${env.BUILD_NUMBER}'"
-                sh "git push https://${GIT_USERNAME}:${encodedPassword}@github.com/${GIT_USERNAME}/dockerwebapp.git"
-            }
-          
-        }
-      }
-}
   }
 
   post {
