@@ -1,6 +1,6 @@
 pipeline {
 
-  agent none
+  agent any
 
   environment {
     DOCKER_IMAGE = "lengochung1/dockerwebapp"
