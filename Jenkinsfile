@@ -22,7 +22,6 @@ pipeline {
         sh "docker image ls | grep ${DOCKER_IMAGE}"
         withCredentials([usernamePassword(credentialsId: 'dockerHub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
             sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
-            sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
             sh "docker push ${DOCKER_IMAGE}:latest"
             sh "docker push ${DOCKER_IMAGE}:${env.BUILD_NUMBER}"
         }
@@ -30,7 +29,6 @@ pipeline {
         //clean to save disk
         sh "docker image rm ${DOCKER_IMAGE}:${env.BUILD_NUMBER}"
         sh "docker image rm ${DOCKER_IMAGE}:${DOCKER_TAG}"
-        sh "docker image rm ${DOCKER_IMAGE}:latest"
       }
     }
         stage('Cloning Git') {
@@ -42,7 +40,6 @@ pipeline {
             steps {
                 script{
                     sh "ls -l"
-                    sh "sed -i 's/latest/${env.BUILD_NUMBER}/g' ${WORKSPACE}/helmchart/templates/deployment.yaml"
                 }
             }
         }
@@ -56,6 +53,7 @@ pipeline {
                     //sh "git config user.name hungba"
                     sh "git remote rm origin"
                     sh "git remote add origin https://github.com/hunglna8/argocd.git"
+                    sh "sed -i 's/latest/${env.BUILD_NUMBER}/g' ${WORKSPACE}/helmchart/templates/deployment.yaml"
                     sh "git add ."
                     sh "git commit -m OK"
                     sh "git push -f https://${GIT_USERNAME}:${encodedPassword}@github.com/${GIT_USERNAME}/argocd.git"
