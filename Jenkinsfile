@@ -22,7 +22,7 @@ pipeline {
       }
       steps {
         sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} . "
-        sh "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest"
+        //sh "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest"
         sh "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:${env.BUILD_NUMBER}"
         sh "docker image ls | grep ${DOCKER_IMAGE}"
         withCredentials([usernamePassword(credentialsId: 'dockerHub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
@@ -58,7 +58,7 @@ pipeline {
                     sh "git branch -r"
                     sh "git status"
                     sh "git log --oneline"
-                    sh "git add --all"
+                    sh "git add argocd/deployment.yml"
                     sh "git commit -m OK"
                     sh "git push -f https://${GIT_USERNAME}:${encodedPassword}@github.com/${GIT_USERNAME}/argocd.git"
                     }
