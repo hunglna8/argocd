@@ -41,7 +41,7 @@ pipeline {
             steps {
                 script{
                     sh "ls -l"
-                    sh "sed -i 's/latest/${env.BUILD_NUMBER}/g' ${WORKSPACE}/argocd/deployment.yaml"
+                    sh "sed -i 's/latest/${env.BUILD_NUMBER}/g' ${WORKSPACE}/argocd/deployment.yml"
                 }
             }
         }
