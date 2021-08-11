@@ -9,6 +9,11 @@ pipeline {
 
   stages {
 
+        stage('Cloning Git') {
+                steps {
+                git 'https://github.com/hunglna8/dockerwebapp.git'
+            }
+        }
 
     stage("build") {
       agent { node {label 'master'}}
@@ -31,11 +36,7 @@ pipeline {
         sh "docker image rm ${DOCKER_IMAGE}:${DOCKER_TAG}"
       }
     }
-        stage('Cloning Git') {
-                steps {
-                git 'https://github.com/hunglna8/argocd.git'
-            }
-        }
+
         stage('Search and replace') {
             steps {
                 script{
