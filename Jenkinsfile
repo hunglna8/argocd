@@ -54,6 +54,8 @@ pipeline {
                     sh "git remote rm origin"
                     sh "git remote add origin https://github.com/hunglna8/argocd.git"
                     sh "sed -i 's/latest/${env.BUILD_NUMBER}/g' ${WORKSPACE}/helmchart/templates/deployment.yaml"
+                    sh "git branch"
+                    sh "git branch -r"
                     sh "git add ."
                     sh "git commit -m OK"
                     sh "git push -f https://${GIT_USERNAME}:${encodedPassword}@github.com/${GIT_USERNAME}/argocd.git"
