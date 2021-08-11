@@ -56,7 +56,9 @@ pipeline {
                     sh "sed -i 's/latest/${env.BUILD_NUMBER}/g' ${WORKSPACE}/helmchart/templates/deployment.yaml"
                     sh "git branch"
                     sh "git branch -r"
-                    sh "git add ."
+                    sh "git status"
+                    sh "git log --oneline"
+                    sh "git add --all"
                     sh "git commit -m OK"
                     sh "git push -f https://${GIT_USERNAME}:${encodedPassword}@github.com/${GIT_USERNAME}/argocd.git"
                     }
